@@ -13,7 +13,7 @@ Projeto desenvolvido com as seguintes tecnologias:
 ## :computer: Desenvolvimento
 Projeto desenvolvido com base no conteúdo da <strong> Next Level Week</strong> ministrada pelo </b> [Diego Fernandes](https://github.com/diego3g)
 
-## :recycle: Como contribuir
+## :mortar_board: Como contribuir
 
 - Faça um Fork desse repositório,
 - Crie uma branch com a sua feature: `git checkout -b my-feature`
