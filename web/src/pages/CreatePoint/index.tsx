@@ -1,13 +1,18 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent, useContext } from 'react';
+import { Container, Form, ItemsList , GroupField} from './styles';
 import { Link, useHistory } from 'react-router-dom';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
-import logo from '../../assets/logo.svg';
 import { FiArrowLeft } from 'react-icons/fi';
-import './styles.css';
 import axios from 'axios';
 import api from '../../services/api';
 import Dropzone from '../../components/Dropzone';
+import { ThemeContext } from 'styled-components';
+
+import './styles';
+import logo from '../../assets/logo.svg';
+import logoDark from '../../assets/logoDark.svg';
+
 
 interface Item {
   id: number;
@@ -27,6 +32,8 @@ const CreatePoint = () => {
   const [ufs, setUfs] = useState<string[]>([]);
   const [cities, setCities] = useState<string[]>([]);
   const [items, setItems] = useState<Item[]>([]);
+  const { title } = useContext(ThemeContext);
+
 
   //initial position point
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0,]);
@@ -150,23 +157,24 @@ const CreatePoint = () => {
   }
 
   return (
+    <Container>
     <div id="page-create-point">
       <header>
-        <img src={logo} alt="Ecoleta" />
+      {title === 'light' ? (<img src={logo} alt="Ecoleta" />)
+            : (<img src={logoDark} alt="Ecoleta" />)}
 
         <Link to="/">
           <FiArrowLeft />
           Voltar para home
         </Link>
       </header>
-
-      <Dropzone onFileUploaded={setSelectedFile} />
-
-      <form onSubmit={handleSubmit} autoComplete="off">
+      <Form onSubmit={handleSubmit} autoComplete="off">
         <h1>
           Cadastro do <br />ponto de coleta
         </h1>
 
+        <Dropzone onFileUploaded={setSelectedFile} />
+        
         <fieldset>
           <legend>
             <h2>Dados</h2>
@@ -182,7 +190,7 @@ const CreatePoint = () => {
             />
           </div>
 
-          <div className="field-group">
+         <GroupField>
             <div className="field">
               <label htmlFor="email">E-mail</label>
               <input
@@ -192,6 +200,8 @@ const CreatePoint = () => {
                 onChange={handleInputChange}
               />
             </div>
+          </GroupField>
+          <GroupField>
             <div className="field">
               <label htmlFor="whatsapp">Whatsapp</label>
               <input
@@ -201,7 +211,7 @@ const CreatePoint = () => {
                 onChange={handleInputChange}
               />
             </div>
-          </div>
+            </GroupField>
         </fieldset>
 
         <fieldset>
@@ -215,11 +225,10 @@ const CreatePoint = () => {
               attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-
             <Marker position={selectedPosition} />
           </Map>
 
-          <div className="field-group">
+          <GroupField>
             <div className="field">
               <label htmlFor="uf">Estado (UF)</label>
               <select
@@ -255,7 +264,7 @@ const CreatePoint = () => {
                 ))}
               </select>
             </div>
-          </div>
+          </GroupField>
         </fieldset>
 
         <fieldset>
@@ -264,7 +273,7 @@ const CreatePoint = () => {
             <span>Selecione um ou mais itens abaixo</span>
           </legend>
 
-          <ul className="items-grid">
+          <ItemsList>
             {items.map((item) => (
               <li
                 key={item.id}
@@ -275,12 +284,13 @@ const CreatePoint = () => {
                 <span>{item.title}</span>
               </li>
             ))}
-          </ul>
+          </ItemsList>
         </fieldset>
 
         <button type="submit">Cadastrar ponto de coleta</button>
-      </form>
+      </Form>
     </div>
+    </Container>
   );
 };
 

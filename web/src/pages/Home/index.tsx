@@ -1,33 +1,38 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FiLogIn } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from 'styled-components';
+import { Container, Content, Main } from './styles';
 
-import './styles.css';
 import logo from '../../assets/logo.svg';
+import logoDark from '../../assets/logoDark.svg';
 
 const Home = () => {
+  const { title } = useContext(ThemeContext);
   return (
-    <div id="page-home">
-      <div className="content">
+    <Container>
+      <Content>
+        <div id="Home"/>
         <header>
-          <img src={logo} alt="Ecoleta" />
+          {title === 'light' ? (<img src={logo} alt="Ecoleta" />)
+            : (<img src={logoDark} alt="Ecoleta" />)}
+          <Link to="/create-point" />
         </header>
 
-        <main>
+        <Main>
           <h1>Seu marketplace de coleta de resíduos.</h1>
           <p>
             Ajudamos pessoas a encontrarem pontos de coleta de forma eficiente.
           </p>
-
           <Link to="/create-point">
             <span>
               <FiLogIn />
             </span>
-            <strong>Cadastre um pronto de coleta</strong>
+            <strong>Cadastre um ponto de coleta</strong>
           </Link>
-        </main>
-      </div>
-    </div>
+        </Main>
+      </Content>
+    </Container>
   );
 };
 
