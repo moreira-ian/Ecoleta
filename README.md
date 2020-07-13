@@ -1,4 +1,7 @@
-# Ecoleta
+
+<h5 align="center">
+    <img alt="Logo" title="#logo" src="https://github.com/moreira-ian/Ecoleta/blob/master/mobile/src/assets/logo%402x.png">
+</h5>
 Este é um projeto Web e Mobile que visa ajudar as pessoas a encontrarem pontos de coleta para reciclagem.
 
 
